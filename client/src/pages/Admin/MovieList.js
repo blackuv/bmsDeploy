@@ -83,7 +83,9 @@ function MovieList() {
     const getData = async ()=>{
         dispatch(ShowLoading());
         const response = await getAllMovies();
-        const allMovies = response.data;
+        console.log("response ", response);
+        const allMovies = FakeMovies;
+        console.log("allMovies", allMovies);
         setMovies(allMovies.map(function(item){
             return {...item, key:`movie${item._id}`}
         }));
