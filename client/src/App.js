@@ -21,12 +21,12 @@ function App() {
       <Provider store={store}>
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+        <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/admin" element={<ProtectedRoute><Admin/></ProtectedRoute>} />
-        <Route path="/partner" element={<ProtectedRoute><Partner/></ProtectedRoute>} />
-        <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie/></ProtectedRoute>} />
+        <Route path="/admin" element={<Admin/>} />
+        <Route path="/partner" element={<Partner/>} />
+        <Route path="/movie/:id" element={<SingleMovie/>} />
         <Route path="/book-show/:id" element={<ProtectedRoute><BookShow/></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
         <Route path="/forget" element={<Forget/>} />
