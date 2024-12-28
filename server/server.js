@@ -1,6 +1,18 @@
 const express = require("express");
+const path = require("path");
 const app = express();
+app.use(cors({
+  origin:"*",
+  methods:["GET","POST","PUT","DELETE","PATCH"],
+  allowedHeaders:["Content-Type", "Authorization"],
+}))
 app.use(express.json());
+const clientBuildPath = path.join(__dirname, "../client/build");
+console.log(clientBuildPath);
+app.use(express.static(clientBuildPath))
+app.get("*", (req, res)=>{
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+})
 require("dotenv").config(); // load environment variables
 
 const connectDB = require("./config/db"); // import DB connection
