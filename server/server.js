@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 
 app.use(cors({
-  origin:"*",
+  origin:"https://vishnubookmyshow.onrender.com",
   methods:["GET","POST","PUT","DELETE","PATCH"],
   allowedHeaders:["Content-Type", "Authorization"],
 }))
