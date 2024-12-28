@@ -3,38 +3,49 @@ const path = require("path");
 const app = express();
 const cors = require("cors");
 
+// Middleware for CORS
 app.use(cors({
-  origin:"https://vishnubookmyshow.onrender.com",
-  methods:["GET","POST","PUT","DELETE","PATCH"],
-  allowedHeaders:["Content-Type", "Authorization"],
-}))
-app.use(express.json());
-const clientBuildPath = path.join(__dirname, "../client/build");
-console.log(clientBuildPath);
-app.use(express.static(clientBuildPath))
-app.get("*", (req, res)=>{
-  res.sendFile(path.join(clientBuildPath, "index.html"));
-})
-require("dotenv").config(); // load environment variables
+  origin: "https://vishnubookmyshow.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
-const connectDB = require("./config/db"); // import DB connection
+// Middleware for JSON parsing
+app.use(express.json());
+
+// Import environment variables
+require("dotenv").config();
+
+// Import DB connection and routes
+const connectDB = require("./config/db");
 const userRouter = require("./routes/userRoutes");
 const movieRouter = require("./routes/movieRoute");
-const theatreRouter = require("./routes/theatreRoute"); 
+const theatreRouter = require("./routes/theatreRoute");
 const showRouter = require("./routes/showRoutes");
 const bookingRouter = require("./routes/bookingRoute");
 
+// Connect to the database
+connectDB();
 
-// console.log("server", process.env);
-connectDB(); // connect to DB
-
-//Routes
-app.use("/api/users", userRouter)
-app.use("/api/movies", movieRouter)
-app.use("/api/theatres", theatreRouter)
-app.use("/api/shows", showRouter)
+// Define API routes
+app.use("/api/users", userRouter);
+app.use("/api/movies", movieRouter);
+app.use("/api/theatres", theatreRouter);
+app.use("/api/shows", showRouter);
 app.use("/api/bookings", bookingRouter);
 
-app.listen(8082, () => {
-  console.log("Server is running at port 8082");
+// Serve React static files
+const clientBuildPath = path.join(__dirname, "../client/build");
+console.log(clientBuildPath);
+app.use(express.static(clientBuildPath));
+
+// Catch-all route for React
+app.get("*", (req, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+});
+
+// Start the server
+const PORT = process.env.PORT || 8082;
+app.listen(PORT, () => {
+  console.log(`Server is running at port ${PORT}`);
 });
