@@ -27,8 +27,8 @@ function App() {
         <Route path="/admin" element={<Admin/>} />
         <Route path="/partner" element={<Partner/>} />
         <Route path="/movie/:id" element={<SingleMovie/>} />
-        <Route path="/book-show/:id" element={<ProtectedRoute><BookShow/></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
+        <Route path="/book-show/:id" element={<BookShow/>} />
+        <Route path="/profile" element={<Profile/>} />
         <Route path="/forget" element={<Forget/>} />
         <Route path="/reset/:email" element={<Reset/>} />
 
